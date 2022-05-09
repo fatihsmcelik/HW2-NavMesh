@@ -3,26 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class NewBehaviourScript : MonoBehaviour
+public class plyrscrpt : MonoBehaviour
 {
-
-    NavMeshAgent agent;
+    public Camera cam;
+    public NavMeshAgent agent;
     
-    void Start()
-    {
-        agent.GetComponent<NavMeshAgent>();
-    }
-
     
     void Update()
     {
         if(Input.GetMouseButtonDown(0)){
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100)){
-                agent.destination= hit.point;
+            if(Physics.Raycast(ray, out hit)){
+                agent.SetDestination(hit.point);
             }
         }
-        
     }
 }
